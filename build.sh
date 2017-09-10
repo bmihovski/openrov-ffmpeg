@@ -13,7 +13,7 @@ git clone git://git.videolan.org/x264
 cd x264
 
 # Build x264
-./configure --host=arm-linux --enable-static --enable-pic --cross-prefix=${CCPREFIX} --disable-asm --prefix=${PWD}/../../output/usr
+./configure --host=arm-linux --enable-static --disable-fontconfig --enable-pic --cross-prefix=${CCPREFIX} --disable-asm --prefix=${PWD}/../../output/usr
 make -j8
 make install
 cd ..
