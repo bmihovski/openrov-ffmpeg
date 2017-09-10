@@ -1,24 +1,25 @@
 #!/bin/bash
 set -e
+# Export variables
+export CCPREFIX="/opt/toolchain/arm/bin/arm-none-linux-gnueabi-"
 
 # Get the FFMPEG source
-wget https://ffmpeg.org/releases/ffmpeg-3.0.2.tar.xz
+git clone git://source.ffmpeg.org/ffmpeg.git
 
-tar xf ffmpeg-3.0.2.tar.xz
-cd ffmpeg*
+cd ffmpeg
 
 # Get library dependency sources
 git clone git://git.videolan.org/x264
 cd x264
 
 # Build x264
-./configure --enable-static --enable-pic --disable-asm --prefix=${PWD}/../../output/usr
+./configure --host=arm-none-linux-gnueabi- --enable-static --enable-pic --cross-prefix=${CCPREFIX} --disable-asm --prefix=${PWD}/../../output/usr
 make -j8
 make install
 cd ..
 
 # Build FFMPEG
-./configure --prefix=./build/ --disable-vaapi --disable-shared --enable-gpl --enable-libx264 --enable-static --enable-pic --extra-cflags="-I${PWD}/../output/usr/include/" --extra-ldflags="-L${PWD}/../output/usr/lib" --extra-libs="-ldl"
+./configure --prefix=./build/ --enable-cross-compile --cross-prefix=${CCPREFIX} --arch=armhf --target-os=linux --disable-vaapi --enable-libfontconfig --enable-libzvbi --disable-shared --enable-gpl --enable-libx264 --enable-pic --enable-static --extra-cflags="-I${PWD}/../output/usr/include/" --extra-ldflags="-L${PWD}/../output/usr/lib" --extra-libs="-ldl"
 make -j8
 
 make prefix=${PWD}/../output/usr install
