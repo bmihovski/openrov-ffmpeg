@@ -3,6 +3,10 @@ set -e
 # Export variables
 export CCPREFIX="/opt/toolchain/arm/bin/arm-none-linux-gnueabi-"
 
+#Install git
+
+apt-get -y install git
+
 # Get the FFMPEG source
 git clone git://source.ffmpeg.org/ffmpeg.git
 
