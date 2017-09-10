@@ -23,7 +23,7 @@ make install
 cd ..
 
 # Build FFMPEG
-./configure --prefix=./build/ --enable-cross-compile --cross-prefix=${CCPREFIX} --arch=armhf --target-os=linux --disable-vaapi --enable-libfontconfig --enable-libzvbi --disable-shared --enable-gpl --enable-libx264 --enable-pic --enable-static --extra-cflags="-I${PWD}/../output/usr/include/" --extra-ldflags="-L${PWD}/../output/usr/lib" --extra-libs="-ldl"
+./configure --prefix=./build/ --enable-cross-compile --cross-prefix=${CCPREFIX} --arch=armhf --target-os=linux --disable-vaapi --enable-libfontconfig --enable-libzvbi --disable-shared --enable-gpl --enable-libx264 --enable-pic --enable-static --disable-libass --extra-cflags="-I${PWD}/../output/usr/include/" --extra-ldflags="-L${PWD}/../output/usr/lib" --extra-libs="-ldl"
 make -j8
 
 make prefix=${PWD}/../output/usr install
